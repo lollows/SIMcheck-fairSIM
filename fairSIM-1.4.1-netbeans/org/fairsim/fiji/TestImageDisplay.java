@@ -14,8 +14,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with fairSIM.  If not, see <http://www.gnu.org/licenses/>
-*/
-
+ */
 package org.fairsim.fiji;
 
 import org.fairsim.sim_gui.PlainImageDisplay;
@@ -26,67 +25,53 @@ import ij.ImagePlus;
 
 import javax.swing.JFrame;
 
-/** Small Fiji plugin, running all parameter estimation and reconstruction
- *  steps. Good starting point to look at the code w/o going through all the
- *  GUI components. */
+/**
+ * Small Fiji plugin, running all parameter estimation and reconstruction steps.
+ * Good starting point to look at the code w/o going through all the GUI
+ * components.
+ */
 public class TestImageDisplay implements PlugIn {
-
 
     public void run(String arg) {
 
-	ImageVector iv = ImageVector.copy( IJ.getProcessor() );
+        ImageVector iv = ImageVector.copy(IJ.getProcessor());
 
-	JFrame mainFrame = new JFrame("PlainImageDisplay");
-	PlainImageDisplay pd = new PlainImageDisplay( 1, iv.vectorWidth(), iv.vectorHeight() );
-	
-	mainFrame.add( pd.getPanel());
-	mainFrame.pack();
-	mainFrame.setVisible( true );
-	
-	pd.newImage( 0, iv);
-	pd.refresh();
+        JFrame mainFrame = new JFrame("PlainImageDisplay");
+        PlainImageDisplay pd = new PlainImageDisplay(1, iv.vectorWidth(), iv.vectorHeight());
 
-	
-    }
+        mainFrame.add(pd.getPanel());
+        mainFrame.pack();
+        mainFrame.setVisible(true);
 
-
-    /** Start from the command line to run the plugin */
-    public static void main( String [] arg ) {
-
-	if (arg.length<1) {
-	    System.out.println("TIFF-file");
-	    return;
-	}
-	
-	boolean set=false;
-  
-	new ij.ImageJ( ij.ImageJ.EMBEDDED );
-	ImagePlus ip = IJ.openImage(arg[0]);
-    
-	ImageVector iv = ImageVector.copy( ip.getProcessor() );
-	
-
-	JFrame mainFrame = new JFrame("PlainImageDisplay");
-	PlainImageDisplay pd = new PlainImageDisplay( 1, iv.vectorWidth(), iv.vectorHeight() );
-	
-	mainFrame.add( pd.getPanel());
-	mainFrame.pack();
-	mainFrame.setVisible( true );
-	
-	pd.newImage( 0, iv);
-	pd.refresh();
-
-	
+        pd.newImage(0, iv);
+        pd.refresh();
 
     }
 
+    /**
+     * Start from the command line to run the plugin
+     *
+     * @param arg The path for test image(.tiff) to be displayed
+     */
+    public static void main(final String... arg) {
 
+        final String testImagePath = "./../" + "OMX_LSEC_Actin_525nm.tif";
   
+        new ij.ImageJ(ij.ImageJ.EMBEDDED);
+        ImagePlus ip = IJ.openImage(testImagePath);
 
+        ImageVector iv = ImageVector.copy(ip.getProcessor());
 
+        JFrame mainFrame = new JFrame("PlainImageDisplay");
+        PlainImageDisplay pd = new PlainImageDisplay(1, iv.vectorWidth(), iv.vectorHeight());
 
+        mainFrame.add(pd.getPanel());
+        mainFrame.pack();
+        mainFrame.setVisible(true);
 
+        pd.newImage(0, iv);
+        pd.refresh();
+
+    }
 
 }
-
-
